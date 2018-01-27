@@ -20,6 +20,7 @@ class HintSerializer(serializers.ModelSerializer):
         }
         fields = ('round', 'title', 'detail')
 
+
 class CreateUpdateQuestionSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -30,6 +31,7 @@ class CreateUpdateQuestionSerializer(serializers.ModelSerializer):
         }
         fields = ('number', 'title', 'detail', 'round', 'answer', 'position')
 
+
 class ListQuestionSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -38,6 +40,7 @@ class ListQuestionSerializer(serializers.ModelSerializer):
             'id': {'read_only': True},
         }
         fields = ('id', 'number', 'title', 'detail',)
+
 
 class DashboardSerializer(serializers.ModelSerializer):
 
@@ -56,6 +59,7 @@ class RoundSerializer(serializers.ModelSerializer):
             'id': {'read_only': True },
         }
         fields = ('id', 'number', 'title', 'detail', 'answer', 'question_set')
+
 
 class CreateUpdateRoundSerializer(serializers.ModelSerializer):
 

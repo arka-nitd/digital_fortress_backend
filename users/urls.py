@@ -1,5 +1,5 @@
-from django.conf.urls import url
-from users.views import UserViewSet
+from django.conf.urls import url, include
+from users.views import UserViewSet, LoginView, LogoutView
 
 users_url = UserViewSet.as_view(
             {
@@ -14,8 +14,10 @@ users_url_pk = UserViewSet.as_view(
                 'put': 'partial_update',
             }
         )
-
+app_name = 'users'
 urlpatterns = [
-    url(r'(?P<pk>[0-9a-f-]+)(/)?$', users_url_pk, name='user-detail'),
-    url(r'', users_url, name='users'),
+    url(r'login/(?P<backend>[\w-]+)/', LoginView.as_view()),
+    url(r'logout/', LogoutView.as_view()),
+    url(r"(?P<pk>[0-9a-f-]+)/", users_url_pk, name='user-detail'),
+    url(r'$', users_url, name='user-list'),
 ]

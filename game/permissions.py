@@ -1,6 +1,7 @@
 from rest_framework import permissions
 from game.models import Round, LeaderBoard
 
+
 class IsRoundPermitted(permissions.BasePermission):
 
     def has_permission(self, request, view):

@@ -1,13 +1,18 @@
 from rest_framework import viewsets
-from game.serializers import LeaderBoardSerializer, RoundSerializer, \
-    HintSerializer, ListQuestionSerializer, CreateUpdateQuestionSerializer, DashboardSerializer, CreateUpdateRoundSerializer
+from game.serializers import (
+    LeaderBoardSerializer,
+    RoundSerializer,
+    HintSerializer,
+    ListQuestionSerializer,
+    CreateUpdateQuestionSerializer,
+    DashboardSerializer,
+    CreateUpdateRoundSerializer
+)
 from game.models import LeaderBoard, Round, Hint, Question
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from game.permissions import IsRoundPermitted
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework.reverse import reverse
 from rest_framework.generics import ListAPIView
+
 
 class LeaderBoardViewSet(viewsets.ModelViewSet):
     queryset = LeaderBoard.objects.all()
@@ -38,7 +43,6 @@ class RoundViewSet(viewsets.ModelViewSet):
         return super().retrieve(request, args, kwargs)
 
 
-
 class HintsViewSet(viewsets.ModelViewSet):
     queryset = Hint.objects.all()
     serializer_class = HintSerializer
@@ -55,17 +59,9 @@ class QuestionsViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
             return self.serializers.get(self.action, self.serializers['default'])
 
+
 class DashboardViewSet(ListAPIView):
     queryset = Round.objects.all()
     serializer_class = DashboardSerializer
 
 
-class APIRoot(APIView):
-    def get(self, request):
-
-        return Response({
-            'leaderboard': reverse('game:leaderboard', request=request),
-            'rounds': reverse('game:round', request=request),
-            'questions': reverse('game:questions', request=request),
-            'hints': reverse('game:hints', request=request)
-        })

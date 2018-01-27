@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from game.models import LeaderBoard, Round
 from game.serializers import LeaderBoardSerializer
 
+
 class CreateUserSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -35,15 +36,20 @@ class CreateUserSerializer(serializers.ModelSerializer):
             )
             return user_instance
 
+
 class LeaderBoardListing(serializers.RelatedField):
-    obj={}
+
+    obj = {}
+
     def to_representation(self, value):
         self.obj['round_id'] = value.id
         return self.obj
 
+
 class UserSerializer(serializers.ModelSerializer):
 
-    current_round = serializers.ReadOnlyField(source='leaderboard.round.id', read_only=True)
+    current_round = serializers.ReadOnlyField(source='leaderboard.round.number', read_only=True)
+    date_joined = serializers.DateTimeField(format="%Y-%m-%d")
 
     class Meta:
         model = User
@@ -56,8 +62,14 @@ class UserSerializer(serializers.ModelSerializer):
             'id',
             'first_name',
             'username',
-            'last_name',
+            'avatar',
             'email',
+            'auth_token',
             'date_joined',
             'current_round',
         )
+
+
+class AccessTokenSerializer(serializers.Serializer):
+
+    access_token = serializers.CharField(label="Access Token")

@@ -5,6 +5,8 @@ from users.models import User
 
 class Round(BaseModel):
 
+    BASE = 0
+
     number = models.IntegerField(unique=True)
     title = models.CharField(max_length=200)
     detail = models.TextField(max_length=1000)

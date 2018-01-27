@@ -1,5 +1,5 @@
-from django.conf.urls import url, include
-from game.views import LeaderBoardViewSet, RoundViewSet, HintsViewSet, QuestionsViewSet, APIRoot
+from django.conf.urls import url
+from game.views import LeaderBoardViewSet, RoundViewSet, HintsViewSet, QuestionsViewSet
 
 
 app_name = 'game'
@@ -52,5 +52,4 @@ urlpatterns = [
     url(r'questions/$', question_urls, name='questions'),
     url(r'questions/(?P<pk>[0-9a-f-]+)(/)?$', question_urls_pk, name='round-details'),
     url(r'hints/$', hints_urls, name='hints'),
-    url(r'', APIRoot.as_view()),
 ]
